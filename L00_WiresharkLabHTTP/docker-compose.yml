@@ -11,15 +11,16 @@ services:
         ipv4_address: 193.21.1.4
     volumes:
       - './website:/var/www/'
+      - './apache2.conf:/etc/apache2/apache2.conf'
     cap_add:
       - NET_ADMIN
     privileged: true
   wireshark:
-    image: 'nsunina/wireshark:v1.1'
+    image: 'lscr.io/linuxserver/wireshark:arm64v8-3.4.13'
     stdin_open: true
     tty: true
     ports:
-      - '14500:14500'
+      - '3000:3000'
     networks:
       wireshark_subnet:
         ipv4_address: 193.21.1.5
@@ -27,7 +28,6 @@ services:
       - XPRA_PW=wireshark
     cap_add:
       - NET_ADMIN
-    privileged: true
 networks:
   wireshark_subnet:
     ipam:
